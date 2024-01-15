@@ -1,12 +1,6 @@
 # Run the next bash command to run the game on macOS
 
-## Raylib Version 5.1
-
-[]: # FILEPATH: /Users/dancaldera/Documents/Developer/Main/raylib-template/Readme.md
-
-```bash
-eval cc main.c $(pkg-config --libs --cflags raylib) -o main && ./main
-```
+## Raylib Version 5.1 using c++17
 
 To run a c++ base version, having the following files in the lib directory:
 
