@@ -2,6 +2,7 @@
 #include "raymath.h"
 #include <string>
 #include <iostream>
+#include <cmath>
 
 using namespace std;
 
@@ -175,28 +176,23 @@ int main(void)
 
       if (IsKeyDown(KEY_RIGHT))
       {
-        arrowPosX += arrowSteps;
-
-        if (arrowPosX > 120 && arrowPosY < 120)
-        {
-          arrowPosX = 120;
-          arrowPosY += arrowSteps;
-        }
-        if (arrowPosY > 120 && arrowPosX > 120)
-        {
-          arrowPosY = 120;
-          arrowPosX -= arrowSteps;
-        }
+        arrowPosX += sqrt(pow(arrowSteps, 2) / 2);
+        arrowPosY = sqrt(pow(120, 2) - pow(arrowPosX, 2));
       }
       else if (IsKeyDown(KEY_LEFT))
       {
-        arrowPosX -= arrowSteps;
-
-        if (arrowPosY > 120)
-        {
-          arrowPosY = 120;
-          arrowPosX -= arrowSteps;
-        }
+        arrowPosX -= sqrt(pow(arrowSteps, 2) / 2);
+        arrowPosY = sqrt(pow(120, 2) - pow(arrowPosX, 2));
+      }
+      else if (IsKeyDown(KEY_UP))
+      {
+        arrowPosY -= sqrt(pow(arrowSteps, 2) / 2);
+        arrowPosX = sqrt(pow(120, 2) - pow(arrowPosY, 2));
+      }
+      else if (IsKeyDown(KEY_DOWN))
+      {
+        arrowPosY += sqrt(pow(arrowSteps, 2) / 2);
+        arrowPosX = sqrt(pow(120, 2) - pow(arrowPosY, 2));
       }
 
       cout << "arrowPosX: " << arrowPosX << endl;
