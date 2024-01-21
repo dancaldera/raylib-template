@@ -1,5 +1,8 @@
 #include "raylib.h"
 #include "raymath.h"
+#include <string>
+
+using namespace std;
 
 // Function to draw a hexagon
 void DrawHexagon(float x, float y, float size, Color color, float rotation = 0, int speed = 50)
@@ -51,12 +54,13 @@ int main(void)
     {
     case LOGO:
     {
-      // TODO: Update LOGO screen variables here!
+      // Logo screen variables
+      int secondsLoadingScreen = 2;
 
       framesCounter++; // Count frames
 
       // Wait for 5 seconds (300 frames) before jumping to TITLE screen
-      if (framesCounter > 300)
+      if (framesCounter > secondsLoadingScreen * 60)
       {
         currentScreen = TITLE;
       }
@@ -65,6 +69,8 @@ int main(void)
     case TITLE:
     {
       // TODO: Update TITLE screen variables here!
+
+      framesCounter++; // Count frames
 
       // Press enter to change to GAMEPLAY screen
       if (IsKeyPressed(KEY_ENTER) || IsGestureDetected(GESTURE_TAP))
@@ -76,6 +82,11 @@ int main(void)
     case GAMEPLAY:
     {
       // TODO: Update GAMEPLAY screen variables here!
+      int secondsCounter = 0;
+
+      framesCounter++; // Count frames
+
+      secondsCounter = framesCounter / 60;
 
       // Press enter to change to ENDING screen
       if (IsKeyPressed(KEY_ENTER) || IsGestureDetected(GESTURE_TAP))
@@ -110,28 +121,45 @@ int main(void)
     {
     case LOGO:
     {
-      // TODO: Draw LOGO screen here!
       DrawText("Hexagon+", 20, 20, 60, LIGHTGRAY);
       DrawText("by: DC Game Studio", 20, 80, 30, GRAY);
       DrawHexagon(screenWidth / 2, screenHeight / 2, 100, BLACK, framesCounter);
       DrawHexagon(screenWidth / 2, screenHeight / 2, 90, RAYWHITE, framesCounter);
-      DrawText("LOADING...", 290, 350, 40, GRAY);
+      DrawText("LOADING", 290, 350, 40, GRAY);
+      // draw dinamically the three dots after the word "LOADING"
+      if (framesCounter / 20 % 3 == 0)
+      {
+        DrawText(".", 470, 350, 40, GRAY);
+      }
+      else if (framesCounter / 20 % 3 == 1)
+      {
+        DrawText("..", 470, 350, 40, GRAY);
+      }
+      else if (framesCounter / 20 % 3 == 2)
+      {
+        DrawText("...", 470, 350, 40, GRAY);
+      }
     }
     break;
     case TITLE:
     {
-      // TODO: Draw TITLE screen here!
-      DrawRectangle(0, 0, screenWidth, screenHeight, GREEN);
-      DrawText("TITLE SCREEN", 20, 20, 40, DARKGREEN);
-      DrawText("PRESS ENTER or TAP to JUMP to GAMEPLAY SCREEN", 120, 220, 20, DARKGREEN);
+      DrawText("Hexagon+", 20, 20, 60, LIGHTGRAY);
+      DrawText("by: DC Game Studio", 20, 80, 30, GRAY);
+      DrawHexagon(screenWidth / 2, screenHeight / 2, 100, BLACK, framesCounter);
+      DrawHexagon(screenWidth / 2, screenHeight / 2, 90, RAYWHITE, framesCounter);
+      DrawText("PRESS [ENTER] or Tap to start", 160, 350, 30, GRAY);
     }
     break;
     case GAMEPLAY:
     {
-      // TODO: Draw GAMEPLAY screen here!
-      DrawRectangle(0, 0, screenWidth, screenHeight, PURPLE);
-      DrawText("GAMEPLAY SCREEN", 20, 20, 40, MAROON);
-      DrawText("PRESS ENTER or TAP to JUMP to ENDING SCREEN", 130, 220, 20, MAROON);
+      int clockX = 680;
+      int clockY = 40;
+      DrawText("Game", 20, 20, 60, LIGHTGRAY);
+      DrawText(std::to_string(framesCounter / 60).c_str(), clockX, clockY, 30, GRAY);
+      DrawText(":", clockX + 30, clockY, 30, GRAY);
+      DrawText(std::to_string(framesCounter % 60).c_str(), clockX + 40, clockY, 30, GRAY);
+      DrawHexagon(screenWidth / 2, screenHeight / 2, 100, BLACK, framesCounter);
+      DrawHexagon(screenWidth / 2, screenHeight / 2, 90, RAYWHITE, framesCounter);
     }
     break;
     case ENDING:
