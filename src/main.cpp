@@ -36,6 +36,7 @@ int main(void)
   GameScreen currentScreen = LOGO;
 
   // TODO: Initialize all required variables and load all required data here!
+  int gameplayFrameCounter = 0; // Useful to count frames in each gameplay loop iteration
 
   int framesCounter = 0; // Useful to count frames
 
@@ -154,10 +155,11 @@ int main(void)
     {
       int clockX = 680;
       int clockY = 40;
-      DrawText("Game", 20, 20, 60, LIGHTGRAY);
-      DrawText(std::to_string(framesCounter / 60).c_str(), clockX, clockY, 30, GRAY);
+      gameplayFrameCounter++; // Count frames
+      DrawText("GAME", 20, 20, 60, LIGHTGRAY);
+      DrawText(std::to_string(gameplayFrameCounter / 60).c_str(), clockX, clockY, 30, GRAY);
       DrawText(":", clockX + 30, clockY, 30, GRAY);
-      DrawText(std::to_string(framesCounter % 60).c_str(), clockX + 40, clockY, 30, GRAY);
+      DrawText(std::to_string(gameplayFrameCounter % 60).c_str(), clockX + 40, clockY, 30, GRAY);
       DrawHexagon(screenWidth / 2, screenHeight / 2, 100, BLACK, framesCounter);
       DrawHexagon(screenWidth / 2, screenHeight / 2, 90, RAYWHITE, framesCounter);
     }
@@ -165,9 +167,13 @@ int main(void)
     case ENDING:
     {
       // TODO: Draw ENDING screen here!
-      DrawRectangle(0, 0, screenWidth, screenHeight, BLUE);
-      DrawText("ENDING SCREEN", 20, 20, 40, DARKBLUE);
-      DrawText("PRESS ENTER or TAP to RETURN to TITLE SCREEN", 120, 220, 20, DARKBLUE);
+      gameplayFrameCounter = 0;
+      // DrawRectangle(0, 0, screenWidth, screenHeight, BLUE);
+      DrawText("GAME OVER", 20, 20, 60, LIGHTGRAY);
+      DrawText("PRESS [ENTER] or Tap", 230, 350, 30, GRAY);
+      DrawText("to return to TITLE screen", 200, 380, 30, GRAY);
+      DrawHexagon(screenWidth / 2, screenHeight / 2, 100, RED, framesCounter);
+      DrawHexagon(screenWidth / 2, screenHeight / 2, 90, RAYWHITE, framesCounter);
     }
     break;
     default:
