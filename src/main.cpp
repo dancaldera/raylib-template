@@ -4,7 +4,7 @@
 
 using namespace std;
 
-// Function to draw a hexagon
+// Function to draw an hexagon
 void DrawHexagon(float x, float y, float size, Color color, float rotation = 0, int speed = 50)
 {
   DrawPoly((Vector2){x, y}, 6, size, rotation, color);
