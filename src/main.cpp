@@ -1,6 +1,7 @@
 #include "raylib.h"
 #include "raymath.h"
 #include <string>
+#include <iostream>
 
 using namespace std;
 
@@ -8,6 +9,11 @@ using namespace std;
 void DrawHexagon(float x, float y, float size, Color color, float rotation = 0, int speed = 50)
 {
   DrawPoly((Vector2){x, y}, 6, size, rotation, color);
+}
+
+void DrawArrow(float x, float y, float size, Color color, float rotation = 0, int speed = 50)
+{
+  DrawPoly((Vector2){x, y}, 3, size, rotation, color);
 }
 
 //------------------------------------------------------------------------------------------
@@ -37,6 +43,8 @@ int main(void)
 
   // TODO: Initialize all required variables and load all required data here!
   int gameplayFrameCounter = 0; // Useful to count frames in each gameplay loop iteration
+  int arrowPosX = 0;
+  int arrowPosY = -120;
 
   int framesCounter = 0; // Useful to count frames
 
@@ -153,6 +161,7 @@ int main(void)
     break;
     case GAMEPLAY:
     {
+      int arrowSteps = 10;
       int clockX = 680;
       int clockY = 40;
       gameplayFrameCounter++; // Count frames
@@ -162,6 +171,36 @@ int main(void)
       DrawText(std::to_string(gameplayFrameCounter % 60).c_str(), clockX + 40, clockY, 30, GRAY);
       DrawHexagon(screenWidth / 2, screenHeight / 2, 100, BLACK, framesCounter);
       DrawHexagon(screenWidth / 2, screenHeight / 2, 90, RAYWHITE, framesCounter);
+      DrawArrow(screenWidth / 2 + arrowPosX, screenHeight / 2 + arrowPosY, 20, BLACK);
+
+      if (IsKeyDown(KEY_RIGHT))
+      {
+        arrowPosX += arrowSteps;
+
+        if (arrowPosX > 120 && arrowPosY < 120)
+        {
+          arrowPosX = 120;
+          arrowPosY += arrowSteps;
+        }
+        if (arrowPosY > 120 && arrowPosX > 120)
+        {
+          arrowPosY = 120;
+          arrowPosX -= arrowSteps;
+        }
+      }
+      else if (IsKeyDown(KEY_LEFT))
+      {
+        arrowPosX -= arrowSteps;
+
+        if (arrowPosY > 120)
+        {
+          arrowPosY = 120;
+          arrowPosX -= arrowSteps;
+        }
+      }
+
+      cout << "arrowPosX: " << arrowPosX << endl;
+      cout << "arrowPosY: " << arrowPosY << endl;
     }
     break;
     case ENDING:
