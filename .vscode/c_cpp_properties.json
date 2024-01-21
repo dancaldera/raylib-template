@@ -4,7 +4,7 @@
       "name": "Mac",
       "includePath": [
         "${workspaceFolder}/**",
-        //   "${workspaceFolder}/lib", // Use this if you have a lib folder
+        // "${workspaceFolder}/lib", // Use this if you have a lib folder
         "/opt/homebrew/Cellar/raylib/5.0/**"
       ],
       "defines": [],
