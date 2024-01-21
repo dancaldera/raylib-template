@@ -172,27 +172,29 @@ int main(void)
       DrawText(std::to_string(gameplayFrameCounter % 60).c_str(), clockX + 40, clockY, 30, GRAY);
       DrawHexagon(screenWidth / 2, screenHeight / 2, 100, BLACK, framesCounter);
       DrawHexagon(screenWidth / 2, screenHeight / 2, 90, RAYWHITE, framesCounter);
-      DrawArrow(screenWidth / 2 + arrowPosX, screenHeight / 2 + arrowPosY, 20, BLACK);
+      DrawArrow(screenWidth / 2 + arrowPosX, screenHeight / 2 + arrowPosY, 20, BLACK, framesCounter);
 
       if (IsKeyDown(KEY_RIGHT))
       {
         arrowPosX += sqrt(pow(arrowSteps, 2) / 2);
         arrowPosY = sqrt(pow(120, 2) - pow(arrowPosX, 2));
+
+        if (arrowPosX > 120)
+        {
+          arrowPosX = 120;
+          arrowPosY = 0;
+        }
       }
       else if (IsKeyDown(KEY_LEFT))
       {
         arrowPosX -= sqrt(pow(arrowSteps, 2) / 2);
         arrowPosY = sqrt(pow(120, 2) - pow(arrowPosX, 2));
-      }
-      else if (IsKeyDown(KEY_UP))
-      {
-        arrowPosY -= sqrt(pow(arrowSteps, 2) / 2);
-        arrowPosX = sqrt(pow(120, 2) - pow(arrowPosY, 2));
-      }
-      else if (IsKeyDown(KEY_DOWN))
-      {
-        arrowPosY += sqrt(pow(arrowSteps, 2) / 2);
-        arrowPosX = sqrt(pow(120, 2) - pow(arrowPosY, 2));
+
+        if (arrowPosX < -120)
+        {
+          arrowPosX = -120;
+          arrowPosY = 0;
+        }
       }
 
       cout << "arrowPosX: " << arrowPosX << endl;
