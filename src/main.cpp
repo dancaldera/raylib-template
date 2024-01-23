@@ -44,8 +44,11 @@ int main(void)
 
   // TODO: Initialize all required variables and load all required data here!
   int gameplayFrameCounter = 0; // Useful to count frames in each gameplay loop iteration
-  int arrowPosX = 0;
-  int arrowPosY = -120;
+  double arrowPosX = 0.0, arrowPosY = -85.0;
+  double arrowSteps = 5;
+  double angle = 270.0;
+  const double radius = 85.0;
+  const int hexagonSize = 80;
 
   int framesCounter = 0; // Useful to count frames
 
@@ -133,8 +136,8 @@ int main(void)
     {
       DrawText("Hexagon+", 20, 20, 60, LIGHTGRAY);
       DrawText("by: DC Game Studio", 20, 80, 30, GRAY);
-      DrawHexagon(screenWidth / 2, screenHeight / 2, 100, BLACK, framesCounter);
-      DrawHexagon(screenWidth / 2, screenHeight / 2, 90, RAYWHITE, framesCounter);
+      DrawHexagon(screenWidth / 2, screenHeight / 2, hexagonSize, BLACK, framesCounter);
+      DrawHexagon(screenWidth / 2, screenHeight / 2, hexagonSize - 10, RAYWHITE, framesCounter);
       DrawText("LOADING", 290, 350, 40, GRAY);
       // draw dinamically the three dots after the word "LOADING"
       if (framesCounter / 20 % 3 == 0)
@@ -155,14 +158,13 @@ int main(void)
     {
       DrawText("Hexagon+", 20, 20, 60, LIGHTGRAY);
       DrawText("by: DC Game Studio", 20, 80, 30, GRAY);
-      DrawHexagon(screenWidth / 2, screenHeight / 2, 100, BLACK, framesCounter);
-      DrawHexagon(screenWidth / 2, screenHeight / 2, 90, RAYWHITE, framesCounter);
+      DrawHexagon(screenWidth / 2, screenHeight / 2, hexagonSize, BLACK, framesCounter);
+      DrawHexagon(screenWidth / 2, screenHeight / 2, hexagonSize - 10, RAYWHITE, framesCounter);
       DrawText("PRESS [ENTER] or Tap to start", 160, 350, 30, GRAY);
     }
     break;
     case GAMEPLAY:
     {
-      int arrowSteps = 10;
       int clockX = 680;
       int clockY = 40;
       gameplayFrameCounter++; // Count frames
@@ -170,32 +172,23 @@ int main(void)
       DrawText(std::to_string(gameplayFrameCounter / 60).c_str(), clockX, clockY, 30, GRAY);
       DrawText(":", clockX + 30, clockY, 30, GRAY);
       DrawText(std::to_string(gameplayFrameCounter % 60).c_str(), clockX + 40, clockY, 30, GRAY);
-      DrawHexagon(screenWidth / 2, screenHeight / 2, 100, BLACK, framesCounter);
-      DrawHexagon(screenWidth / 2, screenHeight / 2, 90, RAYWHITE, framesCounter);
-      DrawArrow(screenWidth / 2 + arrowPosX, screenHeight / 2 + arrowPosY, 20, BLACK, framesCounter);
+      DrawHexagon(screenWidth / 2, screenHeight / 2, hexagonSize, BLACK, framesCounter);
+      DrawHexagon(screenWidth / 2, screenHeight / 2, hexagonSize - 10, RAYWHITE, framesCounter);
 
       if (IsKeyDown(KEY_RIGHT))
       {
-        arrowPosX += sqrt(pow(arrowSteps, 2) / 2);
-        arrowPosY = sqrt(pow(120, 2) - pow(arrowPosX, 2));
-
-        if (arrowPosX > 120)
-        {
-          arrowPosX = 120;
-          arrowPosY = 0;
-        }
+        angle += arrowSteps;
+        arrowPosX = cos(angle * PI / 180) * radius;
+        arrowPosY = sin(angle * PI / 180) * radius;
       }
       else if (IsKeyDown(KEY_LEFT))
       {
-        arrowPosX -= sqrt(pow(arrowSteps, 2) / 2);
-        arrowPosY = sqrt(pow(120, 2) - pow(arrowPosX, 2));
-
-        if (arrowPosX < -120)
-        {
-          arrowPosX = -120;
-          arrowPosY = 0;
-        }
+        angle -= arrowSteps;
+        arrowPosX = cos(angle * PI / 180) * radius;
+        arrowPosY = sin(angle * PI / 180) * radius;
       }
+
+      DrawArrow(screenWidth / 2 + arrowPosX, screenHeight / 2 + arrowPosY, 10, RED, angle);
 
       cout << "arrowPosX: " << arrowPosX << endl;
       cout << "arrowPosY: " << arrowPosY << endl;
@@ -209,8 +202,8 @@ int main(void)
       DrawText("GAME OVER", 20, 20, 60, LIGHTGRAY);
       DrawText("PRESS [ENTER] or Tap", 230, 350, 30, GRAY);
       DrawText("to return to TITLE screen", 200, 380, 30, GRAY);
-      DrawHexagon(screenWidth / 2, screenHeight / 2, 100, RED, framesCounter);
-      DrawHexagon(screenWidth / 2, screenHeight / 2, 90, RAYWHITE, framesCounter);
+      DrawHexagon(screenWidth / 2, screenHeight / 2, hexagonSize, RED, framesCounter);
+      DrawHexagon(screenWidth / 2, screenHeight / 2, hexagonSize - 10, RAYWHITE, framesCounter);
     }
     break;
     default:
