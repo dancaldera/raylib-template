@@ -1,18 +1,7 @@
+#include "draws.cpp"
 #include "include/raylib.h"
-#include <iostream>
-
-using namespace std;
-
-// Function to draw an hexagon
-void DrawHexagon(float x, float y, float size, Color color, float rotation = 0,
-                 int speed = 50) {
-  DrawPoly((Vector2){x, y}, 6, size, rotation, color);
-}
-
-void DrawArrow(float x, float y, float size, Color color, float rotation = 0,
-               int speed = 50) {
-  DrawPoly((Vector2){x, y}, 3, size, rotation, color);
-}
+#include <cmath>
+#include <string>
 
 //------------------------------------------------------------------------------------------
 // Types and Structures Definition
@@ -25,8 +14,8 @@ typedef enum GameScreen { LOGO = 0, TITLE, GAMEPLAY, ENDING } GameScreen;
 int main(void) {
   // Initialization
   //--------------------------------------------------------------------------------------
-  const int screenWidth = 800;
-  const int screenHeight = 450;
+  const float screenWidth = 800;
+  const float screenHeight = 450;
 
   InitWindow(screenWidth, screenHeight, "Hexagon+");
 
@@ -163,8 +152,6 @@ int main(void) {
       DrawArrow(screenWidth / 2 + arrowPosX, screenHeight / 2 + arrowPosY, 10,
                 RED, angle);
 
-      cout << "arrowPosX: " << arrowPosX << endl;
-      cout << "arrowPosY: " << arrowPosY << endl;
     } break;
     case ENDING: {
       // TODO: Draw ENDING screen here!
