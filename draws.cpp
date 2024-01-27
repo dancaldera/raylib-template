@@ -1,4 +1,5 @@
 #include "include/raylib.h"
+#include <string>
 
 // Function to draw an hexagon
 void DrawHexagon(float x, float y, float size, Color color, float rotation = 0,
@@ -11,13 +12,8 @@ void DrawArrow(float x, float y, float size, Color color, float rotation = 0,
   DrawPoly((Vector2){x, y}, 3, size, rotation, color);
 }
 
-void DrawCounter(float x, float y, float size, Color color, int seconds) {
-  // minutes and seconds
-  int minutes = seconds / 60;
-  seconds = seconds % 60;
-
-  // draw minutes
-  DrawText(TextFormat("%02i", minutes), x, y, size, color);
-  // draw seconds
-  DrawText(TextFormat(":%02i", seconds), x + size * 0.5, y, size * 0.5, color);
+void DrawCounter(float x, float y, float size, Color color, int frames) {
+  DrawText(std::to_string(frames / 60).c_str(), x, y, size, color);
+  DrawText(":", x + 30, y, size, color);
+  DrawText(std::to_string(frames % 60).c_str(), x + 40, y, size, color);
 }

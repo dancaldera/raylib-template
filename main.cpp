@@ -1,7 +1,6 @@
 #include "draws.cpp"
 #include "include/raylib.h"
 #include <cmath>
-#include <string>
 
 //------------------------------------------------------------------------------------------
 // Types and Structures Definition
@@ -129,11 +128,7 @@ int main(void) {
       int clockY = 40;
       gameplayFrameCounter++; // Count frames
       DrawText("GAME", 20, 20, 60, LIGHTGRAY);
-      DrawText(std::to_string(gameplayFrameCounter / 60).c_str(), clockX,
-               clockY, 30, GRAY);
-      DrawText(":", clockX + 30, clockY, 30, GRAY);
-      DrawText(std::to_string(gameplayFrameCounter % 60).c_str(), clockX + 40,
-               clockY, 30, GRAY);
+      DrawCounter(clockX, clockY, 30, GRAY, gameplayFrameCounter);
       DrawHexagon(screenWidth / 2, screenHeight / 2, hexagonSize, BLACK,
                   framesCounter);
       DrawHexagon(screenWidth / 2, screenHeight / 2, hexagonSize - 10, RAYWHITE,
