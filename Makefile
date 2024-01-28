@@ -21,13 +21,7 @@ ifeq ($(UNAME_S),Darwin)
 	LIBRARY_PATHS = -L./lib
 endif
 
-# Add std=c++11 or disable if only C
-ifeq ($(USE_CPP),true)
-	STANDARD = -w -std=c++11
-else
-	STANDARD = -w
-endif
-
+STANDARD = -w
 
 # Adjust linker flags based on your OS and needs
 ifeq ($(UNAME_S),Linux)
