@@ -1,6 +1,7 @@
 # This is a makefile for raylib projects
 # You can set the following variables from the command line:
 USE_CPP = false
+PLATFORM=PLATFORM_DESKTOP # or PLATFORM_WEB
 
 # Validate if system is linux or macOS
 UNAME_S := $(shell uname -s)
@@ -29,9 +30,6 @@ ifeq ($(UNAME_S),Darwin)
 	INCLUDE_PATHS = -I./include
 	LIBRARY_PATHS = -L./lib
 endif
-
-# TODO: Change this to other platforms
-PLATFORM=PLATFORM_DESKTOP
 
 # Add std=c++11 or disable if only C
 ifeq ($(USE_CPP),true)
