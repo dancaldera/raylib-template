@@ -1,10 +1,22 @@
+# This is a makefile for raylib projects
+# You can set the following variables from the command line:
+USE_CPP = false
+
 # Validate if system is linux or macOS
 UNAME_S := $(shell uname -s)
 ifeq ($(UNAME_S),Linux)
-	CC = g++
+	ifeq ($(USE_CPP),true)
+		CC = g++
+	else
+		CC = gcc
+	endif
 endif
 ifeq ($(UNAME_S),Darwin)
-	CC = clang++
+	ifeq ($(USE_CPP),true)
+		CC = clang++
+	else
+		CC = clang
+	endif
 endif
 
 
@@ -21,8 +33,13 @@ endif
 # TODO: Change this to other platforms
 PLATFORM=PLATFORM_DESKTOP
 
-# Add std=c++11 or std=c++2a if you want to use C++11 or C++20 features
-STANDARD = -w -std=c++11
+# Add std=c++11 or disable if only C
+ifeq ($(USE_CPP),true)
+	STANDARD = -w -std=c++11
+else
+	STANDARD = -w
+endif
+
 
 # Adjust linker flags based on your OS and needs
 ifeq ($(UNAME_S),Linux)
@@ -36,7 +53,11 @@ endif
 EXECUTABLE = main
 
 # Your source files
-SOURCES = main.cpp
+ifeq ($(USE_CPP),true)
+	SOURCES = main.cpp
+else
+	SOURCES = main.c
+endif
 
 # The target that compiles your executable
 $(EXECUTABLE): $(SOURCES)
