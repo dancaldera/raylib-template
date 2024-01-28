@@ -2,42 +2,66 @@
 #include "include/raylib.h"
 #include <math.h>
 
+#if defined(PLATFORM_WEB)
+    #include <emscripten/emscripten.h>
+#endif
+
+static void UpdateDrawFrame(void);          // Update and draw one frame
+
 //------------------------------------------------------------------------------------------
 // Types and Structures Definition
 //------------------------------------------------------------------------------------------
 typedef enum GameScreen { LOGO = 0, TITLE, GAMEPLAY, ENDING } GameScreen;
 
+GameScreen currentScreen = LOGO;
+
+// TODO: Initialize all required variables and load all required data here!
+const float screenWidth = 800;
+const float screenHeight = 450;
+
+int gameplayFrameCounter =
+    0; // Useful to count frames in each gameplay loop iteration
+double arrowPosX = 0.0, arrowPosY = -85.0;
+double arrowSteps = 5;
+double angle = 270.0;
+const double radius = 85.0;
+const int hexagonSize = 80;
+
+int framesCounter = 0; // Useful to count frames
+
 //------------------------------------------------------------------------------------
 // Program main entry point
 //------------------------------------------------------------------------------------
-int main(void) {
-  // Initialization
-  //--------------------------------------------------------------------------------------
-  const float screenWidth = 800;
-  const float screenHeight = 450;
+int main(void)
+{
+    // Initialization
+    //---------------------------------------------------------
+    InitWindow(screenWidth, screenHeight, "Hexagon+");
 
-  InitWindow(screenWidth, screenHeight, "Hexagon+");
+#if defined(PLATFORM_WEB)
+    emscripten_set_main_loop(UpdateDrawFrame, 60, 1);
+#else
+    SetTargetFPS(60);       // Set our game to run at 60 frames-per-second
+    //--------------------------------------------------------------------------------------
 
-  GameScreen currentScreen = LOGO;
+    // Main game loop
+    while (!WindowShouldClose())    // Detect window close button or ESC key
+    {
+        UpdateDrawFrame();
+    }
+#endif
+      // De-Initialization
+      //--------------------------------------------------------------------------------------
+      CloseWindow(); // Close window and OpenGL context
+      //--------------------------------------------------------------------------------------
 
-  // TODO: Initialize all required variables and load all required data here!
-  int gameplayFrameCounter =
-      0; // Useful to count frames in each gameplay loop iteration
-  double arrowPosX = 0.0, arrowPosY = -85.0;
-  double arrowSteps = 5;
-  double angle = 270.0;
-  const double radius = 85.0;
-  const int hexagonSize = 80;
+      return 0;
+  }
 
-  int framesCounter = 0; // Useful to count frames
 
-  SetTargetFPS(60); // Set desired framerate (frames-per-second)
 
-  //--------------------------------------------------------------------------------------
-  // Main game loop
-  while (!WindowShouldClose()) // Detect window close button or ESC key
-  {
-    // TODO: Handle window resizing #include "window_size.h"
+static void UpdateDrawFrame(void) {
+  // TODO: Handle window resizing #include "window_size.h"
     // ToggleFullscreen(screenWidth, screenHeight);
 
     // Update
@@ -166,12 +190,5 @@ int main(void) {
 
     EndDrawing();
     //----------------------------------------------------------------------------------
-  }
-
-  // De-Initialization
-  //--------------------------------------------------------------------------------------
-  CloseWindow(); // Close window and OpenGL context
-  //--------------------------------------------------------------------------------------
-
-  return 0;
 }
+  

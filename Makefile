@@ -50,3 +50,7 @@ run:
 
 # The target that compiles and runs your executable
 all: $(EXECUTABLE) run clean
+
+web:
+	emcc -o main.html main.c -Os -Wall ./lib/libraylib.a -I. -I./raylib.h -L. -L./libraylib.a -s USE_GLFW=3 -DPLATFORM_WEB
+    
