@@ -1,21 +1,36 @@
-CC = clang++
-# For C++, use CXX = clang++
-# For C, use CC = clang
+# Validate if system is linux or macOS
+UNAME_S := $(shell uname -s)
+ifeq ($(UNAME_S),Linux)
+	CC = g++
+endif
+ifeq ($(UNAME_S),Darwin)
+	CC = clang++
+endif
+
 
 # Assuming raylib.h is ./include, and libraylib.a is in ./lib
-INCLUDE_PATHS = -I./include
-LIBRARY_PATHS = -L./lib
+ifeq ($(UNAME_S),Linux)
+	INCLUDE_PATHS = -I./include
+	LIBRARY_PATHS = -I./lib
+endif
+ifeq ($(UNAME_S),Darwin)
+	INCLUDE_PATHS = -I./include
+	LIBRARY_PATHS = -L./lib
+endif
 
-# Add std=c++17 or std=c++2a if you want to use C++17 or C++20 features
-STANDARD = -std=c++17
+# TODO: Change this to other platforms
+PLATFORM=PLATFORM_DESKTOP
+
+# Add std=c++11 or std=c++2a if you want to use C++11 or C++20 features
+STANDARD = -w -std=c++11
 
 # Adjust linker flags based on your OS and needs
-# For macOS:
-LINKER_FLAGS = -lraylib -framework OpenGL -framework Cocoa -framework IOKit -framework CoreVideo
-# For Linux:
-# LINKER_FLAGS = -lraylib -lGL -lm -lpthread -ldl -lrt -lX11
-# For Windows:
-# LINKER_FLAGS = -lraylib -lopengl32 -lgdi32 -lwinmm
+ifeq ($(UNAME_S),Linux)
+	LINKER_FLAGS = -lraylib -lGL -lm -lpthread -lX11 -lXrandr -lXinerama -lXi -lXcursor
+endif
+ifeq ($(UNAME_S),Darwin)
+	LINKER_FLAGS = -lraylib -framework OpenGL -framework Cocoa -framework IOKit -framework CoreVideo
+endif
 
 # Name of your executable
 EXECUTABLE = main
