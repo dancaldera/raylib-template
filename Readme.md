@@ -7,3 +7,11 @@ Version Web, first you need to install emscripten, then run the following comman
 ```bash
 make web
 ```
+
+To handle a python server, run the following command:
+
+```bash
+python -m http.server 8080
+```
+
+Then open your browser and go to http://localhost:8080
