@@ -4,6 +4,14 @@
 
 Version Web, first you need to install emscripten, then run the following command:
 
+### make everything in the web raylib version
+
+and run the following command:
+
+```bash
+source ~/emsdk/emsdk_env.sh
+```
+
 ```bash
 make web
 ```
