@@ -22,11 +22,4 @@ void DrawCounter(float x, float y, float size, Color color, int frames) {
   // Draw seconds
   sprintf(buffer, "%d", seconds);
   DrawText(buffer, x, y, size, color);
-
-  // Draw colon
-  DrawText(":", x + 30, y, size, color);
-
-  // Draw remainder frames
-  sprintf(buffer, "%d", remainderFrames);
-  DrawText(buffer, x + 40, y, size, color);
 }

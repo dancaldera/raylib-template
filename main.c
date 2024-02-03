@@ -18,6 +18,12 @@ int main(void) {
 
   InitWindow(screenWidth, screenHeight, "Hexagon+");
 
+  Vector2 touchPosition = {0, 0};
+  Rectangle touchArea = {0, 0, 0, 0};
+
+  int currentGesture = GESTURE_NONE;
+  bool touchInput = false;
+
   GameScreen currentScreen = LOGO;
 
   // TODO: Initialize all required variables and load all required data here!
@@ -67,13 +73,23 @@ int main(void) {
     case GAMEPLAY: {
       // TODO: Update GAMEPLAY screen variables here!
       int secondsCounter = 0;
+      currentGesture = GetGestureDetected();
+      touchPosition = GetTouchPosition(0);
+
+      if (currentGesture != GESTURE_NONE) {
+        touchArea =
+            (Rectangle){touchPosition.x - 30, touchPosition.y - 30, 60, 60};
+        touchInput = true;
+      } else {
+        touchInput = false;
+      }
 
       framesCounter++; // Count frames
 
       secondsCounter = framesCounter / 60;
 
       // Press enter to change to ENDING screen
-      if (IsKeyPressed(KEY_ENTER) || IsGestureDetected(GESTURE_TAP)) {
+      if (IsKeyPressed(KEY_ENTER)) {
         currentScreen = ENDING;
       }
     } break;
@@ -134,11 +150,13 @@ int main(void) {
       DrawHexagon(screenWidth / 2, screenHeight / 2, hexagonSize - 10, RAYWHITE,
                   framesCounter);
 
-      if (IsKeyDown(KEY_RIGHT)) {
+      if (IsKeyDown(KEY_RIGHT) ||
+          (touchPosition.x > screenWidth / 2 && touchInput)) {
         angle += arrowSteps;
         arrowPosX = cos(angle * PI / 180) * radius;
         arrowPosY = sin(angle * PI / 180) * radius;
-      } else if (IsKeyDown(KEY_LEFT)) {
+      } else if (IsKeyDown(KEY_LEFT) ||
+                 (touchPosition.x < screenWidth / 2 && touchInput)) {
         angle -= arrowSteps;
         arrowPosX = cos(angle * PI / 180) * radius;
         arrowPosY = sin(angle * PI / 180) * radius;
@@ -146,7 +164,6 @@ int main(void) {
 
       DrawArrow(screenWidth / 2 + arrowPosX, screenHeight / 2 + arrowPosY, 10,
                 RED, angle);
-
     } break;
     case ENDING: {
       // TODO: Draw ENDING screen here!
