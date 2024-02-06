@@ -1,11 +1,6 @@
 #include "include/raylib.h"
 #include <stdio.h>
 
-// Function to draw a hexagon
-void DrawHexagon(float x, float y, float size, Color color, float rotation) {
-  DrawPoly((Vector2){x, y}, 6, size, rotation, color);
-}
-
 // Function to draw an arrow
 void DrawArrow(float x, float y, float size, Color color, float rotation) {
   DrawPoly((Vector2){x, y}, 3, size, rotation, color);

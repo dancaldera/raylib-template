@@ -116,10 +116,10 @@ int main(void) {
     case LOGO: {
       DrawText("Hexagon+", 20, 20, 60, LIGHTGRAY);
       DrawText("by: DC Game Studio", 20, 80, 30, GRAY);
-      DrawHexagon(screenWidth / 2, screenHeight / 2, hexagonSize, BLACK,
-                  framesCounter);
-      DrawHexagon(screenWidth / 2, screenHeight / 2, hexagonSize - 10, RAYWHITE,
-                  framesCounter);
+      DrawPoly((Vector2){screenWidth / 2, screenHeight / 2}, 6, hexagonSize,
+               framesCounter, BLACK);
+      DrawPoly((Vector2){screenWidth / 2, screenHeight / 2}, 6,
+               hexagonSize - 10, framesCounter, RAYWHITE);
       DrawText("LOADING", 290, 350, 40, GRAY);
       // draw dinamically the three dots after the word "LOADING"
       if (framesCounter / 20 % 3 == 0) {
@@ -133,10 +133,10 @@ int main(void) {
     case TITLE: {
       DrawText("Hexagon+", 20, 20, 60, LIGHTGRAY);
       DrawText("by: DC Game Studio", 20, 80, 30, GRAY);
-      DrawHexagon(screenWidth / 2, screenHeight / 2, hexagonSize, BLACK,
-                  framesCounter);
-      DrawHexagon(screenWidth / 2, screenHeight / 2, hexagonSize - 10, RAYWHITE,
-                  framesCounter);
+      DrawPoly((Vector2){screenWidth / 2, screenHeight / 2}, 6, hexagonSize,
+               framesCounter, BLACK);
+      DrawPoly((Vector2){screenWidth / 2, screenHeight / 2}, 6,
+               hexagonSize - 10, framesCounter, RAYWHITE);
       DrawText("PRESS [ENTER] or Tap to start", 160, 350, 30, GRAY);
     } break;
     case GAMEPLAY: {
@@ -145,10 +145,10 @@ int main(void) {
       gameplayFrameCounter++; // Count frames
       DrawText("GAME", 20, 20, 60, LIGHTGRAY);
       DrawCounter(clockX, clockY, 30, GRAY, gameplayFrameCounter);
-      DrawHexagon(screenWidth / 2, screenHeight / 2, hexagonSize, BLACK,
-                  framesCounter);
-      DrawHexagon(screenWidth / 2, screenHeight / 2, hexagonSize - 10, RAYWHITE,
-                  framesCounter);
+      DrawPoly((Vector2){screenWidth / 2, screenHeight / 2}, 6, hexagonSize,
+               framesCounter, BLACK);
+      DrawPoly((Vector2){screenWidth / 2, screenHeight / 2}, 6,
+               hexagonSize - 10, framesCounter, RAYWHITE);
 
       if (IsKeyDown(KEY_RIGHT) ||
           (touchPosition.x > screenWidth / 2 && touchInput)) {
@@ -172,10 +172,10 @@ int main(void) {
       DrawText("GAME OVER", 20, 20, 60, LIGHTGRAY);
       DrawText("PRESS [ENTER] or Tap", 230, 350, 30, GRAY);
       DrawText("to return to TITLE screen", 200, 380, 30, GRAY);
-      DrawHexagon(screenWidth / 2, screenHeight / 2, hexagonSize, RED,
-                  framesCounter);
-      DrawHexagon(screenWidth / 2, screenHeight / 2, hexagonSize - 10, RAYWHITE,
-                  framesCounter);
+      DrawPoly((Vector2){screenWidth / 2, screenHeight / 2}, 6, hexagonSize,
+               framesCounter, RED);
+      DrawPoly((Vector2){screenWidth / 2, screenHeight / 2}, 6,
+               hexagonSize - 10, framesCounter, RAYWHITE);
     } break;
     default:
       break;
