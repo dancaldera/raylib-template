@@ -3,3 +3,4 @@ main.html
 main.js
 main.wasm
 .DS_Store
+*.swp
