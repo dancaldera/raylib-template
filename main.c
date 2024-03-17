@@ -43,9 +43,6 @@ int main(void) {
   // Main game loop
   while (!WindowShouldClose()) // Detect window close button or ESC key
   {
-    // TODO: Handle window resizing #include "window_size.h"
-    // ToggleFullscreen(screenWidth, screenHeight);
-
     // Update
     //----------------------------------------------------------------------------------
     switch (currentScreen) {
